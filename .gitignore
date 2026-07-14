@@ -1,0 +1,9 @@
+dataset.zip
+
+dataset/
+vectorstore/
+
+.env
+
+__pycache__/
+*.pyc

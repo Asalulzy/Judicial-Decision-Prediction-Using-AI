@@ -1,0 +1,54 @@
+Project Summary — Legal AI Assistant (RAG)
+Date: 2026-07-13
+
+What has been done:
+- Project scaffold created under D:\Lomba\Project RAG\ with `src/`, `dataset/`, `vectorstore/`.
+- Implemented data loader (`src/data_loader.py`) to extract and read text files from ZIP/folders.
+- Implemented preprocessing (`src/preprocessing.py`) with `clean_text()` and `chunk_text()`.
+- Implemented embedding wrapper (`src/embedding.py`) using SentenceTransformers.
+- Implemented FAISS vector store (`src/vector_database.py`) with create/add/search/save/load.
+- Implemented retriever (`src/retriever.py`), LLM wrapper (`src/llm.py`), and extractor (`src/extractor.py`).
+- Built `RAGPipeline` (`src/rag_pipeline.py`) to build/load/search vectorstore and call LLM.
+- Added Streamlit UI (`src/app.py`) with Build/Query flows and extraction display.
+- Added smoke tests (`src/run_smoke_test.py`, `src/run_ui_smoke.py`) and ran them successfully (preprocessing and FAISS checks passed).
+- Initialized local Git repository and created initial commit on branch `main`.
+- Added `requirements.txt`, `.env.example`, `README.md`, and `.gitignore`.
+
+Notes about environment and runtime:
+- Python 3.10+ recommended.
+- Embedding models download from HuggingFace; use small `all-MiniLM-L6-v2` for quick tests.
+- Building full vectorstore on real dataset may take significant time and disk space.
+- Streamlit's file watcher can trigger optional imports (e.g., `transformers` vision modules); if errors appear, run non-UI scripts to debug or set `PYDEVD_DISABLE_FILE_VALIDATION=1`.
+
+What remains / next steps:
+1) (Optional) Push to GitHub: create remote repo and push `main` (do not commit dataset or `.env`).
+2) Add `LICENSE` (e.g., MIT) and expand `README.md` with usage examples and run instructions.
+3) (Optional) Add GitHub Actions CI to run linting/tests on push.
+4) Build full vectorstore from `dataset.zip` (set `DATASET_PATH` in `.env` or input in UI). Monitor disk and time.
+5) (Optional) Improve extractor prompts and LLM backend (Ollama or larger HF models) for better structured JSON extraction.
+6) Consider data privacy: redact PII from documents before indexing if needed.
+
+How to run basic checks locally:
+- Create venv and install requirements:
+
+  python -m venv .venv
+  .\.venv\Scripts\activate
+  pip install -r requirements.txt
+
+- Run smoke tests (fast):
+
+  python src/run_smoke_test.py
+
+- Run UI smoke (build small vectorstore + retrieval):
+
+  python src/run_ui_smoke.py
+
+- Run Streamlit app:
+
+  streamlit run src/app.py
+
+Contact / next action:
+- To push to GitHub now, provide the GitHub repo name (e.g., `username/Legal-AI-RAG`) or allow me to run `gh repo create` and I will push the repo.
+- To add `LICENSE` and update `README.md`, tell me to proceed and I will create the files and commit.
+
+End of summary.
