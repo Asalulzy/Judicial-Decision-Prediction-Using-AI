@@ -1,36 +1,319 @@
-# Judicial Decision Prediction Using AI and Historical Court Records
+# ⚖️ Legal AI Assistant for Indonesian Court Decisions using RAG
 
-## Overview
+An AI-powered legal document analysis system built using **Retrieval-Augmented Generation (RAG)** to understand and answer questions from Indonesian court decision documents.
 
-This project aims to predict prison sentence duration from Indonesian criminal court decisions using Natural Language Processing (NLP) and machine learning techniques. The system analyzes textual case descriptions, legal arguments, witness statements, and applied statutes to estimate sentencing outcomes based on patterns learned from historical judicial records.
+This project enables users to explore legal cases, retrieve relevant historical court decisions, and generate context-aware answers based on retrieved legal documents using semantic search and Large Language Models (LLMs).
 
-The project was initially developed as a legal analytics solution using text embeddings and supervised machine learning models. To enhance explainability and legal information retrieval, a Retrieval-Augmented Generation (RAG) pipeline was later integrated, allowing users to explore similar past cases and supporting legal references alongside prediction results.
+The system combines document processing, embedding-based retrieval, vector databases, and LLM reasoning to assist legal document analysis.
 
-## Key Features
+---
 
-* Predict prison sentence duration from court decision documents.
-* Process and analyze Indonesian legal text using NLP techniques.
-* Generate semantic document representations using IndoBERT embeddings.
-* Train predictive models using XGBoost on more than 23,600 court records.
-* Retrieve relevant historical cases through a FAISS vector database.
-* Provide explainable legal insights using a Retrieval-Augmented Generation (RAG) framework powered by LangChain and a local LLaMA-based Large Language Model (LLM).
+## 📌 Project Overview
 
-## Technical Stack
+Legal documents, especially court decisions, often contain hundreds of pages of complex information including:
 
-* **Language:** Python
-* **NLP:** IndoBERT
-* **Machine Learning:** XGBoost
-* **Vector Database:** FAISS
-* **LLM Framework:** LangChain
-* **Local LLM:** LLaMA-based model
-* **Architecture:** Retrieval-Augmented Generation (RAG)
+- Case background
+- Chronology of events
+- Legal articles applied
+- Prosecutor's demands
+- Judge considerations
+- Final verdict
 
-## Results
+Analyzing these documents manually can be time-consuming.
 
-* Trained on **23,600+ Indonesian court decision documents**.
-* Achieved approximately **82% prediction accuracy** for prison sentence duration.
-* Improved legal document retrieval and contextual explanation through semantic search and RAG integration.
+This project develops an AI assistant that can process Indonesian court decisions and answer legal questions by retrieving relevant information from historical legal documents and generating responses grounded in the retrieved context.
 
-## Motivation
+---
 
-Indonesia's judiciary produces hundreds of thousands of court decisions every year. Identifying relevant precedents and understanding sentencing patterns can be time-consuming for legal practitioners and researchers. This project demonstrates how AI can assist legal analysis by combining predictive modeling with retrieval-based legal reasoning, enabling faster access to historical case information and more interpretable decision support.
+## ✨ Key Features
+
+### 📄 Legal Document Processing
+
+The system provides a pipeline to process raw court decision documents:
+
+- Load legal documents from text files
+- Clean and preprocess legal text
+- Split long documents into smaller chunks
+- Prepare documents for semantic retrieval
+
+### 🔎 Semantic Legal Search
+
+Instead of relying only on keyword matching, the system uses embedding-based search:
+
+- Generate semantic representations of legal documents
+- Store embeddings in a FAISS vector database
+- Retrieve the most relevant legal passages based on user queries
+
+### 🤖 Retrieval-Augmented Generation (RAG)
+
+The core system follows a RAG architecture:
+
+1. User submits a legal question
+2. Retriever searches relevant document chunks
+3. Retrieved context is provided to the LLM
+4. LLM generates an answer based on retrieved legal information
+
+This approach helps reduce hallucination by grounding responses in actual legal documents.
+
+### 📑 Legal Information Extraction
+
+The system can extract structured legal information, including:
+
+- Case background
+- Applied legal articles
+- Charges
+- Judge considerations
+- Final decision
+
+### 🖥️ Interactive User Interface
+
+A Streamlit-based interface is provided for:
+
+- Asking legal questions
+- Searching relevant court decisions
+- Viewing AI-generated explanations
+
+---
+
+## 🏗️ System Architecture
+
+```
+                 User Query
+                      |
+                      v
+             Streamlit Interface
+                      |
+                      v
+               RAG Pipeline
+                      |
+      --------------------------------
+      |                              |
+      v                              v
+ Retriever                         LLM
+      |
+      v
+FAISS Vector Database
+      |
+      v
+Indonesian Court Documents
+```
+
+Detailed pipeline:
+
+```
+Court Documents (.txt)
+        |
+        v
+   Document Loader
+        |
+        v
+  Text Preprocessing
+        |
+        v
+  Document Chunking
+        |
+        v
+ Embedding Generation
+        |
+        v
+FAISS Vector Database
+        |
+        v
+ Semantic Retrieval
+        |
+        v
+   LLM Generation
+        |
+        v
+Legal Answer + Information Extraction
+```
+
+---
+
+## 🛠️ Technology Stack
+
+| Component | Technology |
+|-----------|------------|
+| Programming Language | Python |
+| NLP Processing | Text Embedding Model |
+| LLM Framework | LangChain |
+| Vector Database | FAISS |
+| Application Framework | Streamlit |
+| Architecture | Retrieval-Augmented Generation (RAG) |
+| Environment Management | Python Virtual Environment |
+
+---
+
+## 📂 Project Structure
+
+```
+Legal-AI-RAG/
+│
+├── src/
+│   │
+│   ├── app.py                  # Streamlit application
+│   ├── rag_pipeline.py         # Main RAG orchestration pipeline
+│   ├── data_loader.py          # Document loading module
+│   ├── preprocessing.py        # Text cleaning and chunking
+│   ├── embedding.py            # Embedding generation
+│   ├── vector_database.py      # FAISS vector database management
+│   ├── retriever.py            # Semantic document retrieval
+│   ├── llm.py                  # LLM integration
+│   ├── extractor.py            # Legal information extraction
+│   │
+│   ├── run_smoke_test.py       # Pipeline testing
+│   └── run_ui_smoke.py         # UI testing
+│
+├── dataset/
+│   └── README.md               # Dataset preparation guide
+│
+├── vectorstore/                # Local vector database storage
+│
+├── requirements.txt
+├── .env.example
+├── README.md
+└── PROJECT_SUMMARY.txt
+```
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/Asalulzy/Judicial-Decision-Prediction-Using-AI.git
+cd Legal-AI-RAG
+```
+
+### 2. Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Activate environment:
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux/Mac:
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure Environment Variables
+
+Copy:
+
+```bash
+.env.example
+```
+
+to:
+
+```bash
+.env
+```
+
+Configure required variables such as:
+
+```
+DATASET_PATH=
+MODEL_NAME=
+API_KEY=
+```
+
+---
+
+## 📚 Dataset Preparation
+
+The original court decision dataset is not included in this repository due to size and privacy considerations.
+
+Prepare your dataset structure:
+
+```
+dataset/
+└── file_putusan/
+    ├── doc_1.txt
+    ├── doc_2.txt
+    └── ...
+```
+
+Then configure the dataset path inside `.env`.
+
+---
+
+## ▶️ Running Application
+
+Start the Streamlit application:
+
+```bash
+streamlit run src/app.py
+```
+
+The application will provide an interface for querying legal documents.
+
+---
+
+## 💡 Example Questions
+
+The assistant can answer questions such as:
+
+```
+Apa kronologi kasus dalam putusan ini?
+Pasal apa yang dikenakan kepada terdakwa?
+Apa pertimbangan hakim dalam kasus tersebut?
+Bagaimana hasil akhir putusan?
+```
+
+---
+
+## 🧪 Testing
+
+Run pipeline smoke test:
+
+```bash
+python src/run_smoke_test.py
+```
+
+Run UI smoke test:
+
+```bash
+python src/run_ui_smoke.py
+```
+
+---
+
+## 🚀 Future Improvements
+
+Future development plans:
+
+- Hybrid search using BM25 + vector retrieval
+- Legal document reranking model
+- Better citation and source attribution
+- Evaluation benchmark for RAG quality
+- Fine-tuning Indonesian legal language models
+- FastAPI backend deployment
+- Docker containerization
+- Cloud deployment and monitoring
+
+---
+
+## ⚠️ Disclaimer
+
+This system is designed as an AI-assisted legal research tool.
+
+The generated responses should not be considered as official legal advice or a replacement for professional legal judgment.
+
+---
